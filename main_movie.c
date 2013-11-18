@@ -1,5 +1,3 @@
-Netflix-Project
-===============
 #include <stdio.h> 
 #include "Rating.h" 
 #include "Movie.h" 
@@ -8,6 +6,7 @@ int main(void)
 { 
 	Movie *movies = read100Movies();
 	Movie *m;
+	Rating *r;
 	
 	int numMovies = 0; 
 	int numRatings = 0;
@@ -20,7 +19,7 @@ int main(void)
 	int i = 0;
 	int avgMax1=0;
 	int latestRating = 0;
-	int earliestRating = 100000;
+	int earliestRating = 10000000;
 	
 	//______________________________________________________// 
 
@@ -65,22 +64,24 @@ int main(void)
 	 
 	//______________________________________________________// 
 	
-	for (m = movies; m!=NULL; m = m ->next) 
+	for (r = movies->ratings; r!=NULL; r = r ->next) 
 	{ 	
-		if (rating->date < earliestRating) 
+		if (r->date < earliestRating) 
 		{ 
-			earliestRating = rating->date; 
+			earliestRating = r->date; 
 		} 
 		
-		if (rating->date > latestRating) 
+		if (r->date > latestRating) 
 		{ 
-			latestRating = rating->date; 
+			latestRating = r->date;
 		}
 		
-	printf("The date of the earliest rating is: %s\n", title(earliestRating));	
-	printf("The date of the latest rating is: %s\n", title(latestRating));
 	
 	}
+	printf("The date of the earliest rating is: %s\n", getDate(earliestRating));	
+	printf("The date of the latest rating is: %s\n", getDate(latestRating));
+	
 	freeMovies(movies);
+	freeRatings(r);
 return 0;
 }
